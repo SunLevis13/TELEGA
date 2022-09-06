@@ -11,6 +11,10 @@ dp = Dispatcher(bot)
 async def answer_start_command(message: types.Message):
 		await message.answer(text = f"Hi!\nGlad to see you!")
 
+@dp.message_handler(text=["Огурцы"])
+async def answer_start_command(message: types.Message):
+		await message.answer(text = f"123")
+
 
 if __name__ == '__main__':
 	executor.start_polling(dispatcher = dp)
