@@ -12,8 +12,9 @@ commands_default_keyboard = ReplyKeyboardMarkup(
         ],
         [
             KeyboardButton(text = 'Поделиться контактом', #здесь создается третий подсписок - третья строка кнопок
-            request_contact=True) #запрашиваем номер телефона
-            
+            request_contact=True), #запрашиваем номер телефона
+            KeyboardButton(text = 'Поделиться локацией',
+            request_location=True) #запрашиваем локацию
         ],
         [
             KeyboardButton(text = 'Скрыть клавиатуру') #новая кнопка, скрыть клаву

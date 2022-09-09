@@ -29,18 +29,6 @@ async def answer_start_command(message: types.Message):
 		await message.answer(text = f"Мы её спрятали.",
                             reply_markup=see_commands_default_keyboards) # ЗДЕСЬ МЫ ЗАМЕНЯЕМ НАШУ 1ую клаву на клаву С КНОПКОЙ ПОКАЗАТЬ!!!!!!!!!!!!!!!!!!!!
 
-
-
-@dp.message_handler(text=["Помидоры"])
-async def answer_start_command(message: types.Message):
-		await message.answer(text = f"Помидоры черри")
-
-
-@dp.message_handler(text=["Редис"])
-async def answer_start_command(message: types.Message):
-		await message.answer(text = f"Редис сезонный")
-
-
 @dp.message_handler() # хэндлер, который отвечает на любую ерунду
 async def answer_trash_command(message: types.Message):
 		await message.answer(text = f'Я пока такого не знаю..',
@@ -55,3 +43,25 @@ async def answer_contact_command(message: types.Message):
         else: 
             await message.answer(text = f'А это кто?',
                              reply_markup=ReplyKeyboardRemove())
+
+@dp.message_handler(content_types=['location']) # хэндлер, который отлавливает определенный тип данных. Через запятую можно перечислить в списке что ловить. Сейчас локация
+async def answer_contact_command(message: types.Message):
+        print(message)
+        if message.from_user.id == message.contact.user_id: # проверяем, что полученная локация принадлежит пользователю (сверяем user_id)
+            await message.answer(text = f'Ты здесь',
+                             reply_markup=ReplyKeyboardRemove()) #убираем клавиатуру с экрана, чтобы только на команде help она была
+        else: 
+            await message.answer(text = f'Кто здесь?',
+                             reply_markup=ReplyKeyboardRemove())
+
+
+
+
+# @dp.message_handler(text=["Помидоры"])
+# async def answer_start_command(message: types.Message):
+# 		await message.answer(text = f"Помидоры черри")
+
+
+# @dp.message_handler(text=["Редис"])
+# async def answer_start_command(message: types.Message):
+# 		await message.answer(text = f"Редис сезонный")
