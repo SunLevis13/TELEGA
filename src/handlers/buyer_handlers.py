@@ -3,7 +3,7 @@ from aiogram.types import ReplyKeyboardRemove
 from keyboards import commands_default_keyboard, see_commands_default_keyboards
 from loader import dp
 
-@dp.message_handler(text=['Hello', 'Начать', 'hello','начать', 'привет'])
+@dp.message_handler(text=['Hello', 'Начать', 'hello','начать', 'Привет', 'привет'])
 @dp.message_handler(commands="start")
 async def answer_start_command(message: types.Message):
 	# print(message ['from'] ['first_name'])
@@ -12,9 +12,15 @@ async def answer_start_command(message: types.Message):
     reply_markup=ReplyKeyboardRemove()) #убираем клавиатуру с экрана, чтобы только на команде help она была)
 
 @dp.message_handler(text=['Показать'])
+@dp.message_handler(text=['Помощь'])
 @dp.message_handler(commands=['help'])
 async def answer_help_command(message: types.Message):
 		await message.answer(text = f"Список команд представлен на клавиатуре", reply_markup=commands_default_keyboard)
+
+@dp.message_handler(text=['О нас'])
+@dp.message_handler(commands=['info'])
+async def answer_info_command(message: types.Message):
+		await message.answer(text = f"Мы - интернет магазин!", reply_markup=commands_default_keyboard)
 
 @dp.message_handler(commands=["items"])
 async def answer_items_command(message: types.Message):
@@ -24,9 +30,9 @@ async def answer_items_command(message: types.Message):
                                     '\n-Редис сезонный',
                                     reply_markup=ReplyKeyboardRemove()) #убираем клавиатуру с экрана, чтобы только на команде help она была
 
-@dp.message_handler(text=["Скрыть клавиатуру"])
-async def answer_start_command(message: types.Message):
-		await message.answer(text = f"Мы её спрятали.",
+@dp.message_handler(text=["Скрыть меню"])
+async def answer_hide_command(message: types.Message):
+		await message.answer(text = f"Мы его спрятали.",
                             reply_markup=see_commands_default_keyboards) # ЗДЕСЬ МЫ ЗАМЕНЯЕМ НАШУ 1ую клаву на клаву С КНОПКОЙ ПОКАЗАТЬ!!!!!!!!!!!!!!!!!!!!
 
 @dp.message_handler() # хэндлер, который отвечает на любую ерунду
@@ -45,7 +51,7 @@ async def answer_contact_command(message: types.Message):
                              reply_markup=ReplyKeyboardRemove())
 
 @dp.message_handler(content_types=['location']) # хэндлер, который отлавливает определенный тип данных. Через запятую можно перечислить в списке что ловить. Сейчас локация
-async def answer_contact_command(message: types.Message):
+async def answer_location_command(message: types.Message):
         print(message)
         if message.from_user.id == message.contact.user_id: # проверяем, что полученная локация принадлежит пользователю (сверяем user_id)
             await message.answer(text = f'Ты здесь',

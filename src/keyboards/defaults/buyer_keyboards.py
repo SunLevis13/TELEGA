@@ -4,7 +4,8 @@ commands_default_keyboard = ReplyKeyboardMarkup(
  keyboard=[
         [
             KeyboardButton(text = '/start'),
-            KeyboardButton(text = '/items') #здесь кнопки клавиатуры в одну строку
+            KeyboardButton(text = '/items'), #здесь кнопки клавиатуры в одну строку
+            KeyboardButton(text = '/info'),
         ],
         [
             KeyboardButton(text = '/help') #здесь создается второй подсписок - вторая строка кнопок
@@ -17,7 +18,7 @@ commands_default_keyboard = ReplyKeyboardMarkup(
             request_location=True) #запрашиваем локацию
         ],
         [
-            KeyboardButton(text = 'Скрыть клавиатуру') #новая кнопка, скрыть клаву
+            KeyboardButton(text = 'Скрыть меню') #новая кнопка, скрыть клаву
            
         ],
     ],
