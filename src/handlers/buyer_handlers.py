@@ -22,6 +22,7 @@ async def answer_help_command(message: types.Message):
 async def answer_info_command(message: types.Message):
 		await message.answer(text = f"Мы - интернет магазин!", reply_markup=commands_default_keyboard)
 
+@dp.message_handler(text=['Список товаров'])
 @dp.message_handler(commands=["items"])
 async def answer_items_command(message: types.Message):
 		await message.answer(text = f'У нас в наличии:'
