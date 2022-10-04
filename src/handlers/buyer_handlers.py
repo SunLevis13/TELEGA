@@ -2,6 +2,7 @@ from aiogram import types
 from aiogram.types import ReplyKeyboardRemove
 from keyboards import commands_default_keyboard, see_commands_default_keyboards
 from loader import dp
+from loader import db
 
 @dp.message_handler(text=['Hello', 'Начать', 'hello','начать', 'Привет', 'привет'])
 @dp.message_handler(commands="start")
@@ -47,6 +48,7 @@ async def answer_contact_command(message: types.Message):
         if message.from_user.id == message.contact.user_id: # проверяем, что полученный контакт принадлежит пользователю (сверяем user_id)
             await message.answer(text = f'Это твой контакт',
                              reply_markup=ReplyKeyboardRemove()) #убираем клавиатуру с экрана, чтобы только на команде help она была
+            db.add_user(int(message.from_user.id), str(message.contact.phone_number)) # записываем контакт в базу данных  
         else: 
             await message.answer(text = f'А это кто?',
                              reply_markup=ReplyKeyboardRemove())
