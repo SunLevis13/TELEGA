@@ -46,7 +46,7 @@ async def answer_trash_command(message: types.Message):
 async def answer_contact_command(message: types.Message):
         print(message) # вывод инфы о пользователе, можно взять его имя, тел, id
         if message.from_user.id == message.contact.user_id: # проверяем, что полученный контакт принадлежит пользователю (сверяем user_id)
-            await message.answer(text = f'Это твой контакт',
+            await message.answer(text = f'Регистрация прошла успешно',
                              reply_markup=ReplyKeyboardRemove()) #убираем клавиатуру с экрана, чтобы только на команде help она была
             db.add_user(int(message.from_user.id), str(message.contact.phone_number)) # записываем контакт в базу данных  
         else: 
