@@ -4,13 +4,18 @@ from keyboards import commands_default_keyboard, see_commands_default_keyboards
 from loader import dp
 from loader import db
 
+from keyboards import start_inline_keyboard, get_item_inline_keyboard
+from keyboards.inlines.callback_data import start_callback, navigation_callback
+
+
 @dp.message_handler(text=['Hello', 'Начать', 'hello','начать', 'Привет', 'привет'])
 @dp.message_handler(commands="start")
 async def answer_start_command(message: types.Message):
 	# print(message ['from'] ['first_name'])
 	print(message.from_user.first_name)
 	await message.answer(text = f'Hi, {message.from_user.first_name}!\nGlad to see you!',
-    reply_markup=ReplyKeyboardRemove()) #убираем клавиатуру с экрана, чтобы только на команде help она была)
+   # reply_markup=ReplyKeyboardRemove(),  #убираем клавиатуру с экрана, чтобы только на команде help она была
+    reply_markup=start_inline_keyboard) #прикрепляем inline клавиатуру
 
 @dp.message_handler(text=['Показать'])
 @dp.message_handler(text=['Помощь'])
