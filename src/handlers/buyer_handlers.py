@@ -6,6 +6,7 @@ from loader import db
 
 from keyboards import start_inline_keyboard, get_item_inline_keyboard
 from keyboards.inlines.callback_data import start_callback, navigation_callback
+from loader import bot
 
 
 @dp.message_handler(text=['Hello', 'Начать', 'hello','начать', 'Привет', 'привет'])
@@ -14,8 +15,15 @@ async def answer_start_command(message: types.Message):
 	# print(message ['from'] ['first_name'])
 	print(message.from_user.first_name)
 	await message.answer(text = f'Hi, {message.from_user.first_name}!\nGlad to see you!',
-   # reply_markup=ReplyKeyboardRemove(),  #убираем клавиатуру с экрана, чтобы только на команде help она была
-    reply_markup=start_inline_keyboard) #прикрепляем inline клавиатуру
+   # reply_markup=ReplyKeyboardRemove(),  #убираем стандартную клавиатуру с экрана, чтобы только на команде help она была
+    reply_markup=start_inline_keyboard) #прикрепляем inline клавиатуру ответом на приветствие
+
+@dp.callback_query_handler(start_callback.filter()) # прикрепляем хэндлер с нашей стандартной клавиатурой к inline клавиатуре-кнопке Главное меню
+async def answer_help_command(call: types.CallbackQuery):
+    await call.message.answer(text='Список команд представлен на клавиатуре',
+                                reply_markup=commands_default_keyboard)
+    await bot.delete_message(chat_id=call.message.chat.id,
+                                message_id=call.message.message_id)
 
 @dp.message_handler(text=['Показать'])
 @dp.message_handler(text=['Помощь'])
