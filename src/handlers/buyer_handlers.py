@@ -20,6 +20,7 @@ async def answer_start_command(message: types.Message):
 
 @dp.callback_query_handler(start_callback.filter()) # прикрепляем хэндлер с нашей стандартной клавиатурой к inline клавиатуре-кнопке Главное меню
 async def answer_help_command(call: types.CallbackQuery):
+    print(call)
     await call.message.answer(text='Список команд представлен на клавиатуре',
                                 reply_markup=commands_default_keyboard)
     await bot.delete_message(chat_id=call.message.chat.id,
@@ -77,13 +78,3 @@ async def answer_location_command(message: types.Message):
                              reply_markup=ReplyKeyboardRemove())
 
 
-
-
-# @dp.message_handler(text=["Помидоры"])
-# async def answer_start_command(message: types.Message):
-# 		await message.answer(text = f"Помидоры черри")
-
-
-# @dp.message_handler(text=["Редис"])
-# async def answer_start_command(message: types.Message):
-# 		await message.answer(text = f"Редис сезонный")
